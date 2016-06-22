@@ -1,4 +1,4 @@
-'''Quick implementation of Lance's set game'''
+'''Quick implementation of Lance's set game.'''
 import itertools
 import copy
 import random
@@ -53,10 +53,10 @@ def get_player_order():
 	while True:
 		ch = input('1 for play 1st, 2 for play 2nd: ')
 		if ch == '1':
-			go_first = true
+			go_first = True
+			return
 		elif ch == '2':
 			return
-
 
 def get_size():
 	'''Determine set start size.'''
