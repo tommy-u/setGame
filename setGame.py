@@ -174,21 +174,3 @@ def run():
 
 
 run()
-# set_sz = 3
-# powerset()
-# print(S)
-# P = copy.deepcopy(S)
-
-# delete_sets([1])
-# print(P)
-
-# set_sz = 3
-# powerset()
-# P = copy.deepcopy(S)
-# print(P)
-# player_set = [1,2]
-
-# print([i for i in P if not (set(player_set) <= set(i)) ])
-
-
-
