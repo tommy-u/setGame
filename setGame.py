@@ -138,8 +138,10 @@ def game_loop():
 		if len(P) == 1:
 			if p1_turn:
 				print('player 1 loses')
+				return
 			else:
 				print('player 2 loses')
+				return
 
 		if p1_turn:
 			print('Player 1 is up.')
