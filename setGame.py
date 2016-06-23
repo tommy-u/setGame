@@ -133,6 +133,7 @@ def game_loop():
 
 		print('Currently available sets:')
 		print(P)
+		#print(len(P))
 
 		# If set is empty, you are the loser.
 		if len(P) == 1:
@@ -170,6 +171,8 @@ def run():
 	get_size()
 	powerset()
 	P = copy.deepcopy(S)
+	#P.remove([])
+	#how to remove starting set from P
 	game_loop()
 
 
