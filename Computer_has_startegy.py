@@ -122,7 +122,7 @@ def computer_move():
 	#if len(P) is odd chose set that will delete even number of sets
 	comp_set = P[random.randrange(1, len(P))]
 	delete_setsK(comp_set)
-	while len(K)%2 == 0:
+	while len(K)%2 != 0:
 		comp_set = P[random.randrange(1, len(P))]
 		K = P
 		delete_setsK(comp_set)
