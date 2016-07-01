@@ -114,29 +114,37 @@ def player_move():
 	print('Player chose', player_set)
 	delete_sets(player_set)
 
-def computer_move():
-	'''Computer removes a random subset.'''
+def strategy():
+	
+'''goes through the powerset list and for each element it sees whether it will leave an even or odd number fo sets left'''
+'''if none of the sets leave an odd number of sets left then pick a random one'''
+
 	global P
-	global K
-	'''Assuming [] is always 0th element'''
-	#if len(P) is odd chose set that will delete even number of sets
-	comp_set = P[random.randrange(1, len(P))]
-	delete_setsK(comp_set)
-	while len(K)%2 != 0:
-		comp_set = P[random.randrange(1, len(P))]
-		K = P
+	i = 0
+	for i in range(0, 2**set_sz):
+		comp_set = P[i]
 		delete_setsK(comp_set)
+		if (i != 2**(set_sz) or len(KC) % 2 == 0):
+			KC = copy.deepcopy(P)
+		else: comp_set = P[random.randrange(1, len(P))]
+
+
+def computer_move():
+	'''Computer removes a subset depending on strategy.'''
+	global P
+	'''Assuming [] is always 0th element'''
+	strategy()
 	assert comp_set != []
 	print('computer chooses set', comp_set )
 	delete_sets(comp_set)
 
 def delete_setsK(player_set):
-	'''Remove'''
-	global K
-	K = [i for i in K if not (set(player_set) <= set(i)) ]
+	'''Remove from copy'''
+	global KC
+	KC = [i for i in K if not (set(player_set) <= set(i)) ]
 	
 def delete_sets(player_set):
-	'''Remove'''
+	'''Remove from P'''
 	global P
 	P = [i for i in P if not (set(player_set) <= set(i)) ]
 
@@ -188,7 +196,6 @@ def run():
 	get_size()
 	powerset()
 	P = copy.deepcopy(S)
-	K = P
 	game_loop()
 
 
