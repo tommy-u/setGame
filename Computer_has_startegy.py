@@ -115,10 +115,8 @@ def player_move():
 	delete_sets(player_set)
 
 def strategy():
-	
-'''goes through the powerset list and for each element it sees whether it will leave an even or odd number fo sets left'''
-'''if none of the sets leave an odd number of sets left then pick a random one'''
-
+#'''goes through the powerset list and for each element it sees whether it will leave an even or odd number fo sets left'''
+#'''if none of the sets leave an odd number of sets left then pick a random one'''
 	global P
 	i = 0
 	for i in range(0, 2**set_sz):
@@ -128,12 +126,40 @@ def strategy():
 			KC = copy.deepcopy(P)
 		else: comp_set = P[random.randrange(1, len(P))]
 
+def tu_strategy():
+	#Comments need to be indented.
+	'''goes through the powerset list and for each element it sees whether it will 
+	leave an even or odd number fo sets left.if none of the sets leave an odd number 
+	of sets left then pick a random one'''
+	global P
+        #No need to initialize i in python
+        #i = 0 
+        #for i in range(0, 2**set_sz):
+
+	#Skip the 0th element, the empty set by starting the range at 1.
+	#P changes in size, so can't always go up to 2**set_sz
+	for i in range(1, len(P)):
+		trial_set = P[i]
+		#Copy P into local variable, KC
+		KC = copy.deepcopy(P) 
+		#Update KC by removing ith element.
+		KC = tu_delete_setsK(KC, trial_set)
+		#The strategy is to leave the other player with an odd # of non empty elements.
+		#This happens when len(KC) % 2 == 0 because you have to count the empty set.
+		if len(KC) % 2 == 0:
+			#The current index of P results in an odd num of non empty elements.
+			#Return P[i] to computer_move to make use of this information.
+			return P[i]
+	#If we exit the loop, no subset of P results in an odd # non empty set.
+	#Return an impossible index (-1) to signal that we failed to find an index.
+	return P[random.randrange(1,len(p))]
+
 
 def computer_move():
 	'''Computer removes a subset depending on strategy.'''
 	global P
 	'''Assuming [] is always 0th element'''
-	strategy()
+	comp_set = tu_strategy()
 	assert comp_set != []
 	print('computer chooses set', comp_set )
 	delete_sets(comp_set)
@@ -142,7 +168,11 @@ def delete_setsK(player_set):
 	'''Remove from copy'''
 	global KC
 	KC = [i for i in K if not (set(player_set) <= set(i)) ]
-	
+
+def tu_delete_setsK(KC, trial_set):
+       '''Remove from copy'''
+       return [i for i in K if not (set(player_set) <= set(i)) ]
+
 def delete_sets(player_set):
 	'''Remove from P'''
 	global P
